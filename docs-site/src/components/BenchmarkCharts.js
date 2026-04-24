@@ -29,7 +29,7 @@ const BenchmarkCharts = () => {
         ];
 
         const histogramLayout = {
-          title: { text: 'Latency Distribution (Histogram)', font: { size: 20 } },
+          title: { text: 'Latency Distribution (Histogram)<br><span style="font-size:14px; color:gray">Hardware: Dual Intel Xeon Silver 4110 (2 NUMA Nodes)</span>', font: { size: 20 } },
           xaxis: { 
             title: { text: 'Latency (ns) - LOG SCALE', font: { size: 16 } },
             type: 'log',
@@ -40,7 +40,7 @@ const BenchmarkCharts = () => {
             tickfont: { size: 14 }
           },
           barmode: 'overlay',
-          margin: { l: 80, b: 80, t: 60, r: 20 }
+          margin: { l: 80, b: 80, t: 80, r: 20 }
         };
 
         // Box Plot Data (Pre-calculated without outliers for lightning fast rendering)
@@ -68,13 +68,13 @@ const BenchmarkCharts = () => {
         ];
 
         const boxPlotLayout = {
-          title: { text: 'Latency Variance (Box Plot)', font: { size: 20 } },
+          title: { text: 'Latency Variance (Box Plot)<br><span style="font-size:14px; color:gray">Hardware: Dual Intel Xeon Silver 4110 (2 NUMA Nodes)</span>', font: { size: 20 } },
           yaxis: { 
             title: { text: 'Latency (ns) - LOG SCALE', font: { size: 16 } },
             type: 'log',
             tickfont: { size: 14 }
           },
-          margin: { l: 80, b: 80, t: 60, r: 20 }
+          margin: { l: 80, b: 80, t: 80, r: 20 }
         };
 
         return (

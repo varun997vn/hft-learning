@@ -6,14 +6,37 @@ import BenchmarkCharts from '../src/components/BenchmarkCharts';
 
 # Results & Analysis
 
-This page visualizes the results from our 1,000,000 message test runs.
+This page visualizes the results from our 1,000,000 message test runs, comparing **Local NUMA** (Thread and Memory on the same node) against **Cross NUMA** (Thread and Memory on different nodes).
+
+## How to Read the Data
+
+Before diving into the numbers, here is a quick guide on how to interpret the visualizations below at a glance:
+
+### 1. Latency Distribution (Histogram)
+- **What it shows:** How many messages (Y-axis) experienced a specific delay/latency (X-axis). 
+- **The X-Axis is Logarithmic:** Because it is a log scale, a small visual shift to the right means the latency increased by a massive factor (e.g., 10x or 100x slower).
+- **What to look for:** A tall, narrow spike on the left is ideal (meaning most messages were consistently fast). If the shape stretches out to the right (a "fat tail"), it indicates unpredictable, slow outliers.
+
+### 2. Latency Variance (Box Plot)
+- **What it shows:** The spread and stability of the latencies. 
+- **The Box:** Represents the middle 50% of the data (from the 25th to 75th percentile). A smaller box means highly consistent performance.
+- **The Whiskers (Lines):** Extend to the extreme outlier latencies.
+- **What to look for:** Compare the height of the two boxes and their whiskers. A taller box with long whiskers means high "jitter" (unpredictability).
+
+### 3. Percentiles Summary Table
+- **What it shows:** The exact latency values at specific statistical thresholds.
+- **p50 (Median):** The "normal" experience. 50% of messages were faster than this.
+- **p99 and p99.9 (Tail Latency):** The "worst-case" experience. In High-Frequency Trading, this is the most critical metric. It tells you the maximum delay experienced by the slowest 1% (or 0.1%) of messages.
+
+---
 
 ## The "Aha!" Moment: Tail Latency Jitter
-Notice the tail latencies (p99 and p99.9) in the summary table below. In High-Frequency Trading, predictability is often more important than raw speed. 
 
-When crossing NUMA boundaries (Test B), the average latency does increase slightly. But more importantly, the variance (jitter) spikes significantly. The box plot explicitly demonstrates how the "whiskers" stretch much further under cross-NUMA conditions due to interconnect contention (QPI/UPI overhead).
+Notice the tail latencies (p99 and p99.9) in the summary table below. In low-latency systems, predictability is often more important than raw average speed. 
+
+When crossing NUMA boundaries, the average latency increases slightly. But more importantly, the variance (jitter) spikes significantly. The box plot explicitly demonstrates how the "whiskers" stretch much further under cross-NUMA conditions due to interconnect contention (QPI/UPI overhead).
 
 <BenchmarkCharts />
 
 ### Conclusion
-By strictly isolating the cache lines and aligning our memory allocations to the specific NUMA node of our active threads, we achieve a highly predictable, ultra-low latency SPSC ring buffer.
+By strictly isolating the cache lines and aligning our memory allocations to the specific NUMA node of our active threads, we achieve a highly predictable, ultra-low latency SPSC ring buffer. The graphs clearly prove that local NUMA access eliminates the unpredictable outliers caused by cross-node communication.
