@@ -1,0 +1,19 @@
+---
+sidebar_position: 4
+---
+
+import BenchmarkCharts from '../src/components/BenchmarkCharts';
+
+# Results & Analysis
+
+This page visualizes the results from our 1,000,000 message test runs.
+
+## The "Aha!" Moment: Tail Latency Jitter
+Notice the tail latencies (p99 and p99.9) in the summary table below. In High-Frequency Trading, predictability is often more important than raw speed. 
+
+When crossing NUMA boundaries (Test B), the average latency does increase slightly. But more importantly, the variance (jitter) spikes significantly. The box plot explicitly demonstrates how the "whiskers" stretch much further under cross-NUMA conditions due to interconnect contention (QPI/UPI overhead).
+
+<BenchmarkCharts />
+
+### Conclusion
+By strictly isolating the cache lines and aligning our memory allocations to the specific NUMA node of our active threads, we achieve a highly predictable, ultra-low latency SPSC ring buffer.

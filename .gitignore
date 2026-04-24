@@ -1,3 +1,6 @@
 *.csv
 benchmark
 tests/test_phase1
+docs-site/node_modules/
+docs-site/build/
+docs-site/.docusaurus/
