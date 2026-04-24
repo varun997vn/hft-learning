@@ -1,6 +1,20 @@
-*.csv
+# Compiled C++ binaries
 benchmark
 tests/test_phase1
+
+# Data files
+*.csv
+
+# Python Virtual Environment
+venv/
+__pycache__/
+
+# Docusaurus & Node
 docs-site/node_modules/
 docs-site/build/
 docs-site/.docusaurus/
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
