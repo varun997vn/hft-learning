@@ -27,6 +27,28 @@ If the CPU decides to reorder your instructions for efficiency, it might raise t
 
 **Memory Ordering** is the mechanism we use to tell the CPU and compiler: *"Stop reordering right here. This specific sequence matters to other threads."*
 
+```mermaid
+sequenceDiagram
+    participant Producer
+    participant Memory
+    participant Consumer
+
+    Note over Producer, Memory: Without Memory Ordering
+    Producer->>Memory: Write "Queue is ready" flag
+    Note right of Producer: CPU Reordered!
+    Consumer->>Memory: Read flag (sees ready)
+    Consumer->>Memory: Read Payload (GARBAGE DATA!)
+    Producer->>Memory: Write Payload (Too late)
+
+    Note over Producer, Consumer: With Memory Ordering (Acquire/Release)
+    Producer->>Memory: Write Payload
+    Note right of Producer: memory_order_release (FENCE)
+    Producer->>Memory: Write "Queue is ready" flag
+    Consumer->>Memory: Read flag
+    Note left of Consumer: memory_order_acquire (FENCE)
+    Consumer->>Memory: Read Payload (SAFE DATA!)
+```
+
 To prevent the CPU from making unsafe reorderings in our queue, we use C++ `std::memory_order`.
 
 ### 1. Acquire-Release Semantics

@@ -26,6 +26,22 @@ std::atomic<size_t> read_index{0};  // 8 bytes
 Because they are declared consecutively, they will very likely end up sitting in the **exact same 64-byte bucket (cache line)**.
 
 ### The Catastrophe
+
+```mermaid
+graph TD;
+    subgraph "64-Byte Cache Line (The Bucket)"
+        W[write_index] --- R[read_index]
+    end
+
+    C1((CPU Core 1)) -->|Writes to| W
+    C2((CPU Core 2)) -->|Reads from| R
+
+    C1 -.->|Invalidates Entire Bucket!| C2
+    
+    style W fill:#ff9999,stroke:#333
+    style R fill:#99ccff,stroke:#333
+```
+
 When Core A modifies `write_index`, the CPU's cache coherency protocol (like MESI) says: *"Wait! Core A just altered this bucket. Core B's copy of the bucket is now invalid!"* 
 
 The CPU forces Core B to dump its bucket and fetch it all over again from the slower L3 cache or RAM. Even though Core B never cared about `write_index`—it only wanted `read_index`—it suffers a massive latency penalty. They are fighting over the same physical bucket. This is **False Sharing**.

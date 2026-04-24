@@ -15,6 +15,25 @@ Instead, hardware engineers divide the RAM into "Nodes" and attach each Node dir
 
 This is NUMA (Non-Uniform Memory Access). It is "Non-Uniform" because the speed at which you can access memory depends on where the memory physically lives.
 
+```mermaid
+graph LR
+    subgraph Socket 0
+        C0[CPU 0] --- N0[(Memory Node 0)]
+    end
+
+    subgraph Socket 1
+        C1[CPU 1] --- N1[(Memory Node 1)]
+    end
+
+    C0 <-->|QPI/UPI Interconnect<br/>High Latency!| C1
+
+    C0 -.->|Local Access<br/>Fast| N0
+    C0 -.->|Remote Access<br/>Slow| N1
+    
+    style N0 fill:#99ccff,stroke:#333
+    style N1 fill:#ff9999,stroke:#333
+```
+
 ### Local vs. Remote Memory
 If a thread running on **CPU 0** needs memory from **Node 0**, the access is incredibly fast. This is **Local Memory**.
 
