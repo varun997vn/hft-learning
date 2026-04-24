@@ -31,7 +31,7 @@ const BenchmarkCharts = () => {
 
         const histogramLayout = {
           title: 'Latency Distribution (Histogram)',
-          xaxis: { title: 'Latency (ns)', type: 'log' },
+          xaxis: { title: 'Latency (ns)' },
           yaxis: { title: 'Frequency' },
           barmode: 'overlay',
         };
@@ -54,7 +54,7 @@ const BenchmarkCharts = () => {
 
         const boxPlotLayout = {
           title: 'Latency Variance (Box Plot)',
-          yaxis: { title: 'Latency (ns)', type: 'log' },
+          yaxis: { title: 'Latency (ns)' },
         };
 
         return (
