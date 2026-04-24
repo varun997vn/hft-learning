@@ -19,6 +19,8 @@ const BenchmarkCharts = () => {
             name: 'Local NUMA',
             opacity: 0.7,
             marker: { color: 'blue' },
+            autobinx: false,
+            xbins: { start: 2, end: 8, size: 0.05 } // Bins in log10 space (10^2 to 10^8 ns)
           },
           {
             x: crossSample,
@@ -26,14 +28,24 @@ const BenchmarkCharts = () => {
             name: 'Cross NUMA',
             opacity: 0.7,
             marker: { color: 'red' },
+            autobinx: false,
+            xbins: { start: 2, end: 8, size: 0.05 }
           }
         ];
 
         const histogramLayout = {
-          title: 'Latency Distribution (Histogram)',
-          xaxis: { title: 'Latency (ns)' },
-          yaxis: { title: 'Frequency' },
+          title: { text: 'Latency Distribution (Histogram)', font: { size: 20 } },
+          xaxis: { 
+            title: { text: 'Latency (ns) - LOG SCALE', font: { size: 16 } },
+            type: 'log',
+            tickfont: { size: 14 }
+          },
+          yaxis: { 
+            title: { text: 'Frequency (Number of Occurrences)', font: { size: 16 } },
+            tickfont: { size: 14 }
+          },
           barmode: 'overlay',
+          margin: { l: 80, b: 80, t: 60, r: 20 }
         };
 
         // Box Plot Data
@@ -43,18 +55,25 @@ const BenchmarkCharts = () => {
             type: 'box',
             name: 'Local NUMA',
             marker: { color: 'blue' },
+            boxpoints: 'outliers'
           },
           {
             y: crossSample,
             type: 'box',
             name: 'Cross NUMA',
             marker: { color: 'red' },
+            boxpoints: 'outliers'
           }
         ];
 
         const boxPlotLayout = {
-          title: 'Latency Variance (Box Plot)',
-          yaxis: { title: 'Latency (ns)' },
+          title: { text: 'Latency Variance (Box Plot)', font: { size: 20 } },
+          yaxis: { 
+            title: { text: 'Latency (ns) - LOG SCALE', font: { size: 16 } },
+            type: 'log',
+            tickfont: { size: 14 }
+          },
+          margin: { l: 80, b: 80, t: 60, r: 20 }
         };
 
         return (
