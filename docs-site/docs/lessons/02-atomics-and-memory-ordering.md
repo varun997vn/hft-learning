@@ -16,8 +16,18 @@ However, standard atomics aren't enough. Modern CPUs are highly aggressive: they
 
 In a multi-threaded Queue, reordering is lethal. If the CPU pushes the `"Queue is ready"` flag to memory *before* it actually writes the `Payload` to memory, the Consumer thread will read garbage data.
 
-## Memory Ordering
-To prevent the CPU from making unsafe reorderings, we use C++ `std::memory_order`.
+## What is Memory Ordering? (A Primer)
+If you've only ever programmed in single-threaded environments, you're used to the concept of **Sequential Consistency**. This is the intuitive assumption that your code executes exactly in the order you wrote it, top to bottom.
+
+However, at the hardware level, this is an illusion. To execute programs faster, the CPU and the compiler play a trick on you: **Out-of-Order Execution**. 
+If two lines of code don't depend on each other, the CPU might execute line 2 before line 1. For a single thread, the CPU guarantees the final result looks exactly as if it were executed in order. But when multiple threads are watching each other's memory, this illusion shatters.
+
+Imagine writing a letter, putting it on a desk, and then raising a red flag to tell your coworker the letter is ready.
+If the CPU decides to reorder your instructions for efficiency, it might raise the red flag *before* the letter is actually placed on the desk. Your coworker sees the flag, checks the desk, and finds nothing (or garbage data).
+
+**Memory Ordering** is the mechanism we use to tell the CPU and compiler: *"Stop reordering right here. This specific sequence matters to other threads."*
+
+To prevent the CPU from making unsafe reorderings in our queue, we use C++ `std::memory_order`.
 
 ### 1. Acquire-Release Semantics
 We establish a relationship between the Producer and the Consumer using Acquire/Release semantics.
