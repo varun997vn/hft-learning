@@ -8,35 +8,23 @@ const BenchmarkCharts = () => {
       {() => {
         const Plot = require('react-plotly.js').default;
 
-        // Downsample to ~1000 points to keep the browser 60fps fast
-        const downsample = (arr) => {
-          if (!arr || arr.length <= 1000) return arr;
-          const step = Math.floor(arr.length / 1000);
-          return arr.filter((_, i) => i % step === 0);
-        };
-
-        const localSample = downsample(benchmarkData.local.sample);
-        const crossSample = downsample(benchmarkData.cross.sample);
-
         // Histogram Data
         const histogramData = [
           {
-            x: localSample,
-            type: 'histogram',
+            x: benchmarkData.local.histogram.x,
+            y: benchmarkData.local.histogram.y,
+            type: 'bar',
             name: 'Local NUMA',
             opacity: 0.7,
-            marker: { color: 'blue' },
-            autobinx: false,
-            xbins: { start: 2, end: 8, size: 0.05 } // Bins in log10 space (10^2 to 10^8 ns)
+            marker: { color: 'blue' }
           },
           {
-            x: crossSample,
-            type: 'histogram',
+            x: benchmarkData.cross.histogram.x,
+            y: benchmarkData.cross.histogram.y,
+            type: 'bar',
             name: 'Cross NUMA',
             opacity: 0.7,
-            marker: { color: 'red' },
-            autobinx: false,
-            xbins: { start: 2, end: 8, size: 0.05 }
+            marker: { color: 'red' }
           }
         ];
 
@@ -55,21 +43,27 @@ const BenchmarkCharts = () => {
           margin: { l: 80, b: 80, t: 60, r: 20 }
         };
 
-        // Box Plot Data
+        // Box Plot Data (Pre-calculated without outliers for lightning fast rendering)
         const boxPlotData = [
           {
-            y: localSample,
             type: 'box',
             name: 'Local NUMA',
             marker: { color: 'blue' },
-            boxpoints: 'outliers'
+            q1: [benchmarkData.local.box_plot.q1],
+            median: [benchmarkData.local.box_plot.median],
+            q3: [benchmarkData.local.box_plot.q3],
+            lowerfence: [benchmarkData.local.box_plot.lowerfence],
+            upperfence: [benchmarkData.local.box_plot.upperfence]
           },
           {
-            y: crossSample,
             type: 'box',
             name: 'Cross NUMA',
             marker: { color: 'red' },
-            boxpoints: 'outliers'
+            q1: [benchmarkData.cross.box_plot.q1],
+            median: [benchmarkData.cross.box_plot.median],
+            q3: [benchmarkData.cross.box_plot.q3],
+            lowerfence: [benchmarkData.cross.box_plot.lowerfence],
+            upperfence: [benchmarkData.cross.box_plot.upperfence]
           }
         ];
 
