@@ -8,8 +8,15 @@ const BenchmarkCharts = () => {
       {() => {
         const Plot = require('react-plotly.js').default;
 
-        const localSample = benchmarkData.local.sample;
-        const crossSample = benchmarkData.cross.sample;
+        // Downsample to ~1000 points to keep the browser 60fps fast
+        const downsample = (arr) => {
+          if (!arr || arr.length <= 1000) return arr;
+          const step = Math.floor(arr.length / 1000);
+          return arr.filter((_, i) => i % step === 0);
+        };
+
+        const localSample = downsample(benchmarkData.local.sample);
+        const crossSample = downsample(benchmarkData.cross.sample);
 
         // Histogram Data
         const histogramData = [
