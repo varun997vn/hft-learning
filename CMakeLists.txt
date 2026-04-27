@@ -11,10 +11,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -march=native -pthread")
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# Find NUMA library (required for NumaAllocator)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(NUMA REQUIRED numa)
-link_directories(${NUMA_LIBRARY_DIRS})
+find_library(NUMA_LIBRARIES numa)
+if(NOT NUMA_LIBRARIES)
+    message(WARNING "NUMA library not found. NumaAllocator might fail to link if it uses libnuma.")
+endif()
 
 # Core Library (Static)
 add_library(core_lib STATIC

@@ -24,3 +24,4 @@ docs-site/.docusaurus/
 .DS_Store
 .vscode/
 .idea/
+cmake-3.29.3-linux-x86_64*
