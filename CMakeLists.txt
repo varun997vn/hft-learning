@@ -25,6 +25,7 @@ add_library(core_lib STATIC
     src/ITCH5Parser.cpp
     src/OUCH42.cpp
     src/PreTradeRisk.cpp
+    src/AsyncLogger.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 

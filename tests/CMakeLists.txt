@@ -22,3 +22,8 @@ add_test(NAME ThreadAffinityTests COMMAND test_thread_affinity)
 add_executable(test_itch5_parser test_itch5_parser.cpp)
 target_link_libraries(test_itch5_parser PRIVATE core_lib gtest_main)
 add_test(NAME ITCH5ParserTests COMMAND test_itch5_parser)
+
+# test_logger suite
+add_executable(test_logger test_logger.cpp)
+target_link_libraries(test_logger PRIVATE core_lib gtest_main)
+add_test(NAME LoggerTests COMMAND test_logger)
