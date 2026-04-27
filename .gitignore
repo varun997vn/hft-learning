@@ -25,3 +25,6 @@ docs-site/.docusaurus/
 .vscode/
 .idea/
 cmake-3.29.3-linux-x86_64*
+cmake/
+.cmake/
+cmake-build-*/

@@ -1,0 +1,65 @@
+
+> docs-site@0.0.0 build
+> docusaurus build
+
+[INFO] [en] Creating an optimized production build...
+[WARNING] {"message":"  ⚠ Critical dependency: require function is used in a way in which dependencies cannot be statically extracted\n   ╭─[3:24]\n 1 │ (function (factory) {\n 2 │     if (typeof module === \"object\" && typeof module.exports === \"object\") {\n 3 │         var v = factory(require, exports);\n   ·                         ───────\n 4 │         if (v !== undefined) module.exports = v;\n 5 │     }\n   ╰────\n","moduleIdentifier":"/home/varun/numa-portfolio/docs-site/node_modules/vscode-languageserver-types/lib/umd/main.js","moduleName":"./node_modules/vscode-languageserver-types/lib/umd/main.js","loc":"3:25-31","compilerPath":"server"}
+
+[ERROR] Error: Unable to build website for locale en.
+    at tryToBuildLocale (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:76:15)
+    at async /home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:34:9
+    at async mapAsyncSequential (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/utils/lib/jsUtils.js:21:24)
+    at async Command.build (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:33:5)
+    at async Promise.all (index 0)
+    at async runCLI (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/cli.js:56:5)
+    at async file:///home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/bin/docusaurus.mjs:44:3 {
+  [cause]: Error: Docusaurus found broken links!
+  
+  Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
+  Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
+  
+  It looks like some of the broken links we found appear in many pages of your site.
+  Maybe those broken links appear on all pages through your site layout?
+  We recommend that you check your theme configuration for such links (particularly, theme navbar and footer).
+  Frequent broken links are linking to:
+  - /numa-portfolio/docs/intro
+  
+  Exhaustive list of all broken links found:
+  - Broken link on source page path = /numa-portfolio/404.html:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/markdown-page:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/benchmarking:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/hardware-architecture:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/introduction:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/lob-cpp-features:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/lob-data-structures:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/lob-introduction:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/lob-system-design:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/results-analysis:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/software-primitives:
+     -> linking to /numa-portfolio/docs/intro
+  - Broken link on source page path = /numa-portfolio/docs/system-design:
+     -> linking to /numa-portfolio/docs/intro
+  
+      at throwError (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/logger/lib/logger.js:80:11)
+      at reportBrokenLinks (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/server/brokenLinks.js:250:47)
+      at handleBrokenLinks (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/server/brokenLinks.js:282:5)
+      at executeBrokenLinksCheck (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/buildLocale.js:123:47)
+      at /home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/buildLocale.js:98:67
+      at Object.async (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/logger/lib/perfLogger.js:42:47)
+      at buildLocale (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/buildLocale.js:98:31)
+      at async runBuildLocaleTask (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:91:5)
+      at async /home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:72:13
+      at async tryToBuildLocale (/home/varun/numa-portfolio/docs-site/node_modules/@docusaurus/core/lib/commands/build/build.js:68:9)
+}
+[INFO] Docusaurus version: 3.10.0
+Node version: v20.20.2
