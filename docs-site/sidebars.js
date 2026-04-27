@@ -40,6 +40,13 @@ const sidebars = {
         'lob-benchmarking'
       ],
     },
+    {
+      type: 'category',
+      label: 'End-to-End Pipeline',
+      items: [
+        'itch-pipeline-architecture'
+      ],
+    },
   ],
 };
 
