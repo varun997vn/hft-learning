@@ -1,5 +1,11 @@
 # Compiled C++ binaries
+build/
+*.out
+*.o
+*.a
 benchmark
+src/benchmark_lob
+tests/test_orderbook
 tests/test_phase1
 
 # Data files
