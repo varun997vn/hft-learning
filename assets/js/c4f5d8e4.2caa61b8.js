@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs_site=self.webpackChunkdocs_site||[]).push([["4823"],{7176(s,t,o){o.r(t),o.d(t,{default:()=>u});var e=o(4848);o(6540);var r=o(6347);function u(){return(0,e.jsx)(r.rd,{to:"/numa-portfolio/docs/introduction"})}}}]);
