@@ -6,3 +6,6 @@ target_link_libraries(benchmark_lob PRIVATE core_lib)
 
 add_executable(ITCH_to_LOB_pipeline ITCH_to_LOB_pipeline.cpp)
 target_link_libraries(ITCH_to_LOB_pipeline PRIVATE core_lib)
+
+add_executable(tick_to_trade_pipeline tick_to_trade_pipeline.cpp)
+target_link_libraries(tick_to_trade_pipeline PRIVATE core_lib)

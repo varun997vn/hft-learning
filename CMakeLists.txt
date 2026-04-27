@@ -23,6 +23,8 @@ add_library(core_lib STATIC
     src/TSCUtils.cpp
     src/ThreadAffinity.cpp
     src/ITCH5Parser.cpp
+    src/OUCH42.cpp
+    src/PreTradeRisk.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 
