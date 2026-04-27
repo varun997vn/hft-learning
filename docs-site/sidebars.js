@@ -33,9 +33,11 @@ const sidebars = {
       label: 'HFT Limit Order Book',
       items: [
         'lob-introduction',
+        'big-picture',
         'lob-system-design',
         'lob-data-structures',
-        'lob-cpp-features'
+        'lob-cpp-features',
+        'lob-benchmarking'
       ],
     },
   ],
