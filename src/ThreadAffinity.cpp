@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <sched.h>
 #include <iostream>
+#include "../include/AsyncLogger.hpp"
 
 namespace ThreadPinning {
 
@@ -13,7 +14,7 @@ namespace ThreadPinning {
         // pthread_setaffinity_np returns 0 on success
         int rc = pthread_setaffinity_np(handle, sizeof(cpu_set_t), &cpuset);
         if (rc != 0) {
-            std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
+            HFT::AsyncLogger::getInstance().log(HFT::LogLevel::ERROR, "Error calling pthread_setaffinity_np: %d", rc);
             return false;
         }
 

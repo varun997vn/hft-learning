@@ -26,6 +26,8 @@ add_library(core_lib STATIC
     src/OUCH42.cpp
     src/PreTradeRisk.cpp
     src/AsyncLogger.cpp
+    src/NetworkEventLoop.cpp
+    src/EMS.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 

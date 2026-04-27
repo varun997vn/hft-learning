@@ -27,3 +27,13 @@ add_test(NAME ITCH5ParserTests COMMAND test_itch5_parser)
 add_executable(test_logger test_logger.cpp)
 target_link_libraries(test_logger PRIVATE core_lib gtest_main)
 add_test(NAME LoggerTests COMMAND test_logger)
+
+# test_ems suite
+add_executable(test_ems test_ems.cpp)
+target_link_libraries(test_ems PRIVATE core_lib gtest_main)
+add_test(NAME EMSTests COMMAND test_ems)
+
+# test_event_loop suite
+add_executable(test_event_loop test_event_loop.cpp)
+target_link_libraries(test_event_loop PRIVATE core_lib gtest_main)
+add_test(NAME EventLoopTests COMMAND test_event_loop)

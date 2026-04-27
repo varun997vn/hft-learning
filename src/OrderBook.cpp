@@ -1,5 +1,5 @@
 #include "../include/OrderBook.hpp"
-
+#include "../include/AsyncLogger.hpp"
 #include <sys/mman.h>
 #include <unistd.h>
 #include <cstring>
@@ -186,6 +186,7 @@ bool LimitOrderBook::add(uint64_t id, Side side, uint64_t price, uint64_t quanti
 
     Order* order = allocate_order();
     if (!order) {
+        HFT::AsyncLogger::getInstance().log(HFT::LogLevel::ERROR, "OrderBook: Failed to allocate order %lu", id);
         return false; // Pool exhausted
     }
 
@@ -197,12 +198,14 @@ bool LimitOrderBook::add(uint64_t id, Side side, uint64_t price, uint64_t quanti
     insert_order(order);
     map_insert(id, order);
 
+    HFT::AsyncLogger::getInstance().log(HFT::LogLevel::INFO, "OrderBook: Added order %lu", id);
     return true;
 }
 
 bool LimitOrderBook::cancel(uint64_t id) {
     Order* order = map_find(id);
     if (!order) {
+        HFT::AsyncLogger::getInstance().log(HFT::LogLevel::WARN, "OrderBook: Cancel failed, order %lu not found", id);
         return false; // Order not found
     }
 
@@ -210,6 +213,7 @@ bool LimitOrderBook::cancel(uint64_t id) {
     map_erase(id);
     deallocate_order(order);
 
+    HFT::AsyncLogger::getInstance().log(HFT::LogLevel::INFO, "OrderBook: Canceled order %lu", id);
     return true;
 }
 

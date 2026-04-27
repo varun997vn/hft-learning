@@ -1,5 +1,5 @@
 #include "ITCH5Parser.hpp"
-
+#include "../include/AsyncLogger.hpp"
 namespace itch5 {
 
 // Fast byteswapping wrappers
@@ -63,6 +63,7 @@ bool Parser::parse(const uint8_t* buffer, size_t length, InternalMessage& out_ms
         }
         default:
             // We ignore other ITCH messages for now (e.g. Executions, Trading Action)
+            HFT::AsyncLogger::getInstance().log(HFT::LogLevel::WARN, "ITCH5Parser: Unsupported message type %c", type);
             // returning false indicates this message is not meant for our LOB updating path
             return false;
     }
