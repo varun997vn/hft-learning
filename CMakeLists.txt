@@ -47,3 +47,7 @@ enable_testing()
 # Add Subdirectories
 add_subdirectory(tests)
 add_subdirectory(benchmarks)
+
+# Main Application
+add_executable(numa_hft_main src/Main.cpp)
+target_link_libraries(numa_hft_main PRIVATE core_lib pthread)
