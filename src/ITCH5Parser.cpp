@@ -46,6 +46,21 @@ bool Parser::parse(const uint8_t* buffer, size_t length, InternalMessage& out_ms
             out_msg.id = bswap64(msg->order_ref_number);
             return true;
         }
+        case 'E': {
+            if (length < sizeof(OrderExecutedMsg)) [[unlikely]] return false;
+            const OrderExecutedMsg* msg = reinterpret_cast<const OrderExecutedMsg*>(buffer);
+            out_msg.id = bswap64(msg->order_ref_number);
+            out_msg.quantity = bswap32(msg->executed_shares);
+            return true;
+        }
+        case 'C': {
+            if (length < sizeof(OrderExecutedWithPriceMsg)) [[unlikely]] return false;
+            const OrderExecutedWithPriceMsg* msg = reinterpret_cast<const OrderExecutedWithPriceMsg*>(buffer);
+            out_msg.id = bswap64(msg->order_ref_number);
+            out_msg.quantity = bswap32(msg->executed_shares);
+            out_msg.price = bswap32(msg->execution_price);
+            return true;
+        }
         default:
             // We ignore other ITCH messages for now (e.g. Executions, Trading Action)
             // returning false indicates this message is not meant for our LOB updating path

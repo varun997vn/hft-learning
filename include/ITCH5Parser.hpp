@@ -41,6 +41,30 @@ struct OrderDeleteMsg {
     uint64_t order_ref_number;
 };
 
+// 'E' - Order Executed Message
+struct OrderExecutedMsg {
+    uint8_t msg_type; // 'E'
+    uint16_t stock_locate;
+    uint16_t tracking_number;
+    uint8_t timestamp[6];
+    uint64_t order_ref_number;
+    uint32_t executed_shares;
+    uint64_t match_number;
+};
+
+// 'C' - Order Executed with Price Message
+struct OrderExecutedWithPriceMsg {
+    uint8_t msg_type; // 'C'
+    uint16_t stock_locate;
+    uint16_t tracking_number;
+    uint8_t timestamp[6];
+    uint64_t order_ref_number;
+    uint32_t executed_shares;
+    uint64_t match_number;
+    uint8_t printable;
+    uint32_t execution_price;
+};
+
 #pragma pack(pop)
 
 // Zero-allocation, fast ITCH 5.0 message parser
@@ -48,7 +72,7 @@ class Parser {
 public:
     // Internal representation of an order action
     struct InternalMessage {
-        char type; // 'A' for Add, 'X' for Cancel, 'D' for Delete
+        char type; // 'A' (Add), 'X' (Cancel), 'D' (Delete), 'E' (Execute), 'C' (Execute w/ Price)
         uint64_t id;
         uint64_t price;
         uint64_t quantity;

@@ -64,10 +64,49 @@ TEST(ITCH5ParserTest, ParseDeleteOrderMessage) {
 
 TEST(ITCH5ParserTest, IgnoreUnsupportedMessage) {
     uint8_t dummy_message[20];
-    dummy_message[0] = 'E'; // E.g., Order Executed message, which we don't support yet
+    dummy_message[0] = 'Z'; // Unrecognized type
     
     Parser::InternalMessage parsed;
     bool success = Parser::parse(dummy_message, sizeof(dummy_message), parsed);
 
     EXPECT_FALSE(success);
+}
+
+TEST(ITCH5ParserTest, ParseOrderExecutedMessage) {
+    OrderExecutedMsg raw_msg;
+    raw_msg.msg_type = 'E';
+    raw_msg.stock_locate = hton16(1234);
+    raw_msg.tracking_number = hton16(5678);
+    raw_msg.order_ref_number = hton64(9999);
+    raw_msg.executed_shares = hton32(500);
+    raw_msg.match_number = hton64(1111);
+
+    Parser::InternalMessage parsed;
+    bool success = Parser::parse(reinterpret_cast<const uint8_t*>(&raw_msg), sizeof(raw_msg), parsed);
+
+    EXPECT_TRUE(success);
+    EXPECT_EQ(parsed.type, 'E');
+    EXPECT_EQ(parsed.id, 9999);
+    EXPECT_EQ(parsed.quantity, 500);
+}
+
+TEST(ITCH5ParserTest, ParseOrderExecutedWithPriceMessage) {
+    OrderExecutedWithPriceMsg raw_msg;
+    raw_msg.msg_type = 'C';
+    raw_msg.stock_locate = hton16(1234);
+    raw_msg.tracking_number = hton16(5678);
+    raw_msg.order_ref_number = hton64(9999);
+    raw_msg.executed_shares = hton32(500);
+    raw_msg.match_number = hton64(1111);
+    raw_msg.printable = 'Y';
+    raw_msg.execution_price = hton32(10050);
+
+    Parser::InternalMessage parsed;
+    bool success = Parser::parse(reinterpret_cast<const uint8_t*>(&raw_msg), sizeof(raw_msg), parsed);
+
+    EXPECT_TRUE(success);
+    EXPECT_EQ(parsed.type, 'C');
+    EXPECT_EQ(parsed.id, 9999);
+    EXPECT_EQ(parsed.quantity, 500);
+    EXPECT_EQ(parsed.price, 10050);
 }
