@@ -22,6 +22,7 @@ add_library(core_lib STATIC
     src/OrderBook.cpp
     src/TSCUtils.cpp
     src/ThreadAffinity.cpp
+    src/ITCH5Parser.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 

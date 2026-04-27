@@ -17,3 +17,8 @@ add_test(NAME NumaAllocatorTests COMMAND test_numa_allocator)
 add_executable(test_thread_affinity test_thread_affinity.cpp)
 target_link_libraries(test_thread_affinity PRIVATE core_lib gtest_main)
 add_test(NAME ThreadAffinityTests COMMAND test_thread_affinity)
+
+# test_itch5_parser suite
+add_executable(test_itch5_parser test_itch5_parser.cpp)
+target_link_libraries(test_itch5_parser PRIVATE core_lib gtest_main)
+add_test(NAME ITCH5ParserTests COMMAND test_itch5_parser)
