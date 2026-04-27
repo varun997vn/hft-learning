@@ -16,6 +16,7 @@
  */
 const sidebars = {
   tutorialSidebar: [
+    'simple-explanation',
     {
       type: 'category',
       label: 'NUMA SPSC Ring Buffer',
