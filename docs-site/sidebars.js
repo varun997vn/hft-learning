@@ -44,7 +44,10 @@ const sidebars = {
       type: 'category',
       label: 'End-to-End Pipeline',
       items: [
-        'itch-pipeline-architecture'
+        'itch-pipeline-architecture',
+        'ouch-protocol-gateway',
+        'pre-trade-risk-engine',
+        'tick-to-trade-metrics'
       ],
     },
   ],
