@@ -171,6 +171,7 @@ int main(int argc, char** argv) {
     
     // We can't easily join network_thread because loop.run() is blocking on epoll.
     // We'd have to signal it. We'll let the OS clean it up for now in this demo.
+    network_thread.detach();
 
     NumaMemoryUtils::destroy_and_free(queue);
     AsyncLogger::getInstance().shutdown();
