@@ -53,6 +53,15 @@ public:
      */
     int addTCPListener(uint16_t port, ReadCallback callback);
 
+    /**
+     * @brief Create a TCP client socket and connect to a remote host
+     * @param ip The IP to connect to
+     * @param port The port to connect to
+     * @param callback The function to execute when data is ready to read
+     * @return The socket file descriptor, or -1 on failure
+     */
+    int addTCPClient(const std::string& ip, uint16_t port, ReadCallback callback);
+
 private:
     int epoll_fd_;
     bool running_;

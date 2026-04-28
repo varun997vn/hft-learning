@@ -140,6 +140,43 @@ int NetworkEventLoop::addTCPListener(uint16_t port, ReadCallback callback) {
     return sock;
 }
 
+int NetworkEventLoop::addTCPClient(const std::string& ip, uint16_t port, ReadCallback callback) {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0) {
+        AsyncLogger::getInstance().log(LogLevel::ERROR, "NetworkEventLoop: TCP client socket creation failed");
+        return -1;
+    }
+
+    struct sockaddr_in addr;
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    if (inet_pton(AF_INET, ip.c_str(), &addr.sin_addr) <= 0) {
+        AsyncLogger::getInstance().log(LogLevel::ERROR, "NetworkEventLoop: Invalid IP address for TCP client");
+        close(sock);
+        return -1;
+    }
+
+    // Set non-blocking before connect to avoid blocking the thread
+    setNonBlocking(sock);
+
+    if (connect(sock, (struct sockaddr*)&addr, sizeof(addr)) < 0) {
+        if (errno != EINPROGRESS) {
+            AsyncLogger::getInstance().log(LogLevel::ERROR, "NetworkEventLoop: TCP client connect failed");
+            close(sock);
+            return -1;
+        }
+    }
+
+    if (!registerFd(sock, std::move(callback))) {
+        close(sock);
+        return -1;
+    }
+
+    AsyncLogger::getInstance().log(LogLevel::INFO, "NetworkEventLoop: Connecting to TCP %s:%u", ip.c_str(), port);
+    return sock;
+}
+
 void NetworkEventLoop::run() {
     struct epoll_event events[MAX_EVENTS];
     running_ = true;

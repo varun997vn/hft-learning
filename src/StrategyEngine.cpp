@@ -7,8 +7,8 @@
 
 namespace HFT {
 
-StrategyEngine::StrategyEngine(ExecutionManagementSystem& ems, risk::PreTradeRiskEngine& risk_engine)
-    : ems_(ems), risk_engine_(risk_engine) {
+StrategyEngine::StrategyEngine(ExecutionManagementSystem& ems, risk::PreTradeRiskEngine& risk_engine, TCPEgressGateway& tcp_egress)
+    : ems_(ems), risk_engine_(risk_engine), tcp_egress_(tcp_egress) {
 }
 
 void StrategyEngine::addStrategy(std::unique_ptr<IStrategy> strategy) {
@@ -53,7 +53,9 @@ bool StrategyEngine::sendOrder(char side, uint32_t shares, uint32_t price, const
         int64_t risk_qty = (side == 'B') ? shares : -static_cast<int64_t>(shares);
         risk_engine_.update_position(risk_qty);
         LOG_INFO("Strategy fired! Order %lu sent to market.", my_order_id);
-        // In real life, we would write `ouch_buffer` to a TCP socket here.
+        
+        // Write `ouch_buffer` to TCP socket directly
+        tcp_egress_.send(ouch_buffer, sizeof(ouch42::EnterOrderMsg));
         return true;
     } else {
         LOG_ERROR("Failed to encode OUCH message for Order %lu", my_order_id);

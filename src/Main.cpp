@@ -10,6 +10,7 @@
 #include "../include/ThreadAffinity.hpp"
 #include "../include/StrategyEngine.hpp"
 #include "../include/MarketMakerStrategy.hpp"
+#include "../include/TCPEgress.hpp"
 
 #include <iostream>
 #include <thread>
@@ -40,6 +41,7 @@ int main(int argc, char** argv) {
     }
 
     std::atomic<bool> is_running{true};
+    TCPEgressGateway tcp_egress;
 
     // 3. Setup Strategy / Execution Thread (Core 1)
     std::thread strategy_thread([&]() {
@@ -57,7 +59,7 @@ int main(int argc, char** argv) {
         risk_config.max_price_deviation_pct = 0.05;
         PreTradeRiskEngine risk_engine(risk_config);
 
-        StrategyEngine strategy_engine(ems, risk_engine);
+        StrategyEngine strategy_engine(ems, risk_engine, tcp_egress);
         strategy_engine.addStrategy(std::make_unique<MarketMakerStrategy>(15000, 100, "AAPL"));
 
         Parser::InternalMessage msg;
@@ -99,6 +101,23 @@ int main(int argc, char** argv) {
         if (!loop.init()) {
             LOG_FATAL("Failed to init NetworkEventLoop.");
             return;
+        }
+
+        // Setup TCP Egress Client
+        int tcp_fd = loop.addTCPClient("127.0.0.1", 9000, [](int fd) {
+            uint8_t buffer[1024];
+            ssize_t bytes_read = recv(fd, buffer, sizeof(buffer), 0);
+            if (bytes_read > 0) {
+                // In a real system, we'd parse OUCH Accepted/Executed messages here
+                // and update the EMS. For now we just log.
+            }
+        });
+
+        if (tcp_fd >= 0) {
+            tcp_egress.setSocketFd(tcp_fd);
+            LOG_INFO("TCP Egress initialized and connected to simulator on port 9000.");
+        } else {
+            LOG_WARN("Failed to connect to TCP Exchange simulator on port 9000.");
         }
 
         // Dummy multicast for testing: 239.255.0.1:12345

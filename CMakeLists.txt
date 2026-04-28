@@ -30,6 +30,7 @@ add_library(core_lib STATIC
     src/EMS.cpp
     src/StrategyEngine.cpp
     src/MarketMakerStrategy.cpp
+    src/TCPEgress.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 

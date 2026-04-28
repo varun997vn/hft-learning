@@ -5,6 +5,7 @@
 #include "PreTradeRisk.hpp"
 #include "ITCH5Parser.hpp"
 #include "OrderBook.hpp"
+#include "TCPEgress.hpp"
 #include <vector>
 #include <memory>
 
@@ -15,7 +16,7 @@ namespace HFT {
  */
 class StrategyEngine {
 public:
-    StrategyEngine(ExecutionManagementSystem& ems, risk::PreTradeRiskEngine& risk_engine);
+    StrategyEngine(ExecutionManagementSystem& ems, risk::PreTradeRiskEngine& risk_engine, TCPEgressGateway& tcp_egress);
 
     // Prevent copy/move
     StrategyEngine(const StrategyEngine&) = delete;
@@ -45,6 +46,7 @@ public:
 private:
     ExecutionManagementSystem& ems_;
     risk::PreTradeRiskEngine& risk_engine_;
+    TCPEgressGateway& tcp_egress_;
     std::vector<std::unique_ptr<IStrategy>> strategies_;
     uint64_t order_id_counter_{1000};
 };
