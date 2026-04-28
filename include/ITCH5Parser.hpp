@@ -94,4 +94,17 @@ public:
     static bool parse(const uint8_t* buffer, size_t length, InternalMessage& out_msg);
 };
 
+class ITCH5Builder {
+public:
+    static bool build_add_order(uint8_t* buffer, size_t length,
+                                uint16_t stock_locate,
+                                uint16_t tracking_number,
+                                uint64_t timestamp,
+                                uint64_t order_ref_number,
+                                char buy_sell,
+                                uint32_t shares,
+                                const char* stock,
+                                uint32_t price);
+};
+
 } // namespace itch5

@@ -54,3 +54,7 @@ add_subdirectory(benchmarks)
 # Main Application
 add_executable(numa_hft_main src/Main.cpp)
 target_link_libraries(numa_hft_main PRIVATE core_lib pthread)
+
+# Exchange Emulator
+add_executable(exchange_emulator src/ExchangeEmulator.cpp)
+target_link_libraries(exchange_emulator PRIVATE core_lib pthread)
