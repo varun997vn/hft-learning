@@ -8,6 +8,8 @@
 #include "../include/OUCH42.hpp"
 #include "../include/NumaAllocator.hpp"
 #include "../include/ThreadAffinity.hpp"
+#include "../include/StrategyEngine.hpp"
+#include "../include/MarketMakerStrategy.hpp"
 
 #include <iostream>
 #include <thread>
@@ -55,9 +57,10 @@ int main(int argc, char** argv) {
         risk_config.max_price_deviation_pct = 0.05;
         PreTradeRiskEngine risk_engine(risk_config);
 
+        StrategyEngine strategy_engine(ems, risk_engine);
+        strategy_engine.addStrategy(std::make_unique<MarketMakerStrategy>(15000, 100, "AAPL"));
+
         Parser::InternalMessage msg;
-        uint8_t ouch_buffer[64];
-        uint64_t my_order_id_counter = 1000;
 
         while (is_running.load(std::memory_order_relaxed)) {
             if (queue->pop(msg)) {
@@ -74,38 +77,8 @@ int main(int argc, char** argv) {
                         break;
                 }
 
-                // Simple Mock Strategy: If someone adds a Buy order above $150.00, we Sell to them
-                if (msg.type == 'A' && msg.side == Side::BUY && msg.price >= 15000) {
-                    uint32_t order_shares = 100;
-                    uint32_t order_price = msg.price;
-
-                    RiskCheckStatus status = risk_engine.check_order('S', order_shares, order_price, msg.price);
-                    
-                    if (status == RiskCheckStatus::APPROVED) {
-                        uint64_t my_order_id = my_order_id_counter++;
-                        
-                        // Update EMS
-                        ems.onOrderSent(my_order_id, order_price, order_shares);
-
-                        // Build OUCH
-                        bool encoded = OUCHBuilder::build_enter_order(
-                            ouch_buffer, sizeof(ouch_buffer),
-                            "ORD0001",  // token (should map to order_id in real system)
-                            'S',
-                            order_shares,
-                            "AAPL",
-                            order_price
-                        );
-
-                        if (encoded) {
-                            risk_engine.update_position(-static_cast<int64_t>(order_shares));
-                            LOG_INFO("Strategy fired! Order %lu sent to market.", my_order_id);
-                            // In real life, we would write `ouch_buffer` to a TCP socket here.
-                        }
-                    } else {
-                        LOG_WARN("Strategy order rejected by Pre-Trade Risk.");
-                    }
-                }
+                // Push update to Strategy Engine
+                strategy_engine.onMarketDataUpdate(msg, lob);
             } else {
                 // Queue is empty, yield briefly (in pure HFT, we spin)
                 std::this_thread::yield();

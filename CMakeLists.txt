@@ -28,6 +28,8 @@ add_library(core_lib STATIC
     src/AsyncLogger.cpp
     src/NetworkEventLoop.cpp
     src/EMS.cpp
+    src/StrategyEngine.cpp
+    src/MarketMakerStrategy.cpp
 )
 target_link_libraries(core_lib PUBLIC ${NUMA_LIBRARIES})
 
