@@ -1,3 +1,9 @@
+---
+id: uml-class_diagram
+title: Class Diagram
+sidebar_label: Class Diagram
+---
+
 # HFT Project Class Diagram
 
 This document contains a high-level class diagram of the HFT Local Project showcasing the core classes and their relationships.

@@ -1,3 +1,9 @@
+---
+id: uml-activity_diagram
+title: Activity Diagram
+sidebar_label: Activity Diagram
+---
+
 # NUMA-Portfolio Activity Diagram
 
 This document contains the detailed activity diagram of the `numa-portfolio` project, illustrating the complete end-to-end flow from system initialization, through the concurrent execution of the Network and Strategy threads, to market data processing, order evaluation, risk checks, and system shutdown.

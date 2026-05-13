@@ -1,3 +1,9 @@
+---
+id: uml-object_diagram
+title: Object Diagram
+sidebar_label: Object Diagram
+---
+
 # HFT Project Object Diagram
 
 This diagram represents a runtime snapshot of the HFT Local Project as instantiated in `Main.cpp`. It illustrates the key object instances, their thread affinity, and their relationships during system execution.

@@ -1,3 +1,9 @@
+---
+id: uml-usecase_diagram
+title: Usecase Diagram
+sidebar_label: Usecase Diagram
+---
+
 # NUMA-Portfolio Use Case Diagram
 
 This document contains the comprehensive Use Case Diagram for the `numa-portfolio` project, illustrating the key actors (both human and external systems) and their interactions with the system's core functionalities, benchmarking suites, and high-frequency trading capabilities.

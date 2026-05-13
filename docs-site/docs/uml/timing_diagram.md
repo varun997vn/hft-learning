@@ -1,3 +1,9 @@
+---
+id: uml-timing_diagram
+title: Timing Diagram
+sidebar_label: Timing Diagram
+---
+
 # HFT System Timing Diagram
 
 This document contains the timing and execution flow diagrams for the `numa-portfolio` high-frequency trading (HFT) system. The diagrams illustrate the exact sequence of events, concurrency points, and the continuous timeline from the moment a market data tick is received on the network interface to the moment an order is dispatched to the exchange.

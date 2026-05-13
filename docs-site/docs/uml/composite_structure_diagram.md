@@ -1,3 +1,9 @@
+---
+id: uml-composite_structure_diagram
+title: Composite Structure Diagram
+sidebar_label: Composite Structure Diagram
+---
+
 # Composite Structure Diagram: HFT System
 
 A Composite Structure Diagram illustrates the internal structure of a class or component, including its parts, ports, and connectors. Below is the Mermaid representation of the `numa-portfolio` project's internal structure.

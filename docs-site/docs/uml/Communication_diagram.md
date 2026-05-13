@@ -1,3 +1,9 @@
+---
+id: uml-Communication_diagram
+title: Communication Diagram
+sidebar_label: Communication Diagram
+---
+
 # Communication Diagram
 
 This document contains the Communication Diagram (UML) for the `numa-portfolio` project, capturing the objects involved in the system and the numbered sequence of messages exchanged between them.

@@ -1,3 +1,9 @@
+---
+id: uml-interaction_overview_diagram
+title: Interaction Overview Diagram
+sidebar_label: Interaction Overview Diagram
+---
+
 # Numa-Portfolio: Interaction Overview Diagram
 
 An **Interaction Overview Diagram** provides a high-level, activity-diagram-like view of the flow of control across different interactions within a system. Each primary node (denoted by the `ref` subroutine shape) represents a distinct interaction or sequence diagram that encapsulates a specific functional phase of the `numa-portfolio` execution pipeline.

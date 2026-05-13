@@ -1,3 +1,9 @@
+---
+id: uml-sequence_diagram
+title: Sequence Diagram
+sidebar_label: Sequence Diagram
+---
+
 # Sequence Diagram
 
 This document contains the detailed sequence diagram visualizing the execution flows and dynamic interactions of the `numa-portfolio` High-Frequency Trading (HFT) system.

@@ -1,3 +1,9 @@
+---
+id: uml-profile_diagram
+title: Profile Diagram
+sidebar_label: Profile Diagram
+---
+
 # HFT Project Profile Diagram
 
 This document contains the UML Profile Diagram for the HFT Local Project, showcasing the domain-specific stereotypes, tagged values, and constraints applied to the architecture. The diagram utilizes Mermaid's class diagram capabilities to represent the profile.

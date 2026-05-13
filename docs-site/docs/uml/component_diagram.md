@@ -1,3 +1,9 @@
+---
+id: uml-component_diagram
+title: Component Diagram
+sidebar_label: Component Diagram
+---
+
 # Component Diagram
 
 This document contains the component diagram for the `numa-portfolio` project, illustrating the logical grouping of components, their responsibilities, and how data and control flow between them across various architectural layers.

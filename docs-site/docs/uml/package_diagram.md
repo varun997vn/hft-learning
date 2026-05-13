@@ -1,3 +1,9 @@
+---
+id: uml-package_diagram
+title: Package Diagram
+sidebar_label: Package Diagram
+---
+
 # NUMA-Portfolio Package Diagram
 
 The following class/package diagram details the module structure and runtime inter-package dependencies of the `numa-portfolio` high-frequency trading (HFT) project. The system is logically grouped into explicit namespaces reflecting core logic, wire protocol parsers, risk management, and low-level hardware optimization utilities.

@@ -1,3 +1,9 @@
+---
+id: uml-statemachine_diagram
+title: Statemachine Diagram
+sidebar_label: Statemachine Diagram
+---
+
 # System State Machine Diagrams
 
 This document contains comprehensive State Machine diagrams for the High-Frequency Trading (HFT) system, capturing the lifecycles and behaviors of the various components in the `numa-portfolio` codebase.

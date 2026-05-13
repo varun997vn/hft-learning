@@ -1,3 +1,9 @@
+---
+id: uml-deployment_diagram
+title: Deployment Diagram
+sidebar_label: Deployment Diagram
+---
+
 # Numa HFT Portfolio - Deployment Diagram
 
 This deployment diagram illustrates the physical and logical architecture of the entire NUMA-aware High-Frequency Trading project. It captures the interaction between the exchange emulator and the core HFT system, highlighting the specific hardware topology, threading model, and network communications.

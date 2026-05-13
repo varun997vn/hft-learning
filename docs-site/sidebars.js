@@ -47,8 +47,33 @@ const sidebars = {
       items: [
         'itch-pipeline-architecture',
         'ouch-protocol-gateway',
+        'tcp-egress-networking',
         'pre-trade-risk-engine',
+        'strategy-engine-framework',
+        'execution-management-system',
+        'async-lock-free-logger',
+        'exchange-emulator',
         'tick-to-trade-metrics'
+      ],
+    },
+    {
+      type: 'category',
+      label: 'System Architecture (UML)',
+      items: [
+        'uml/uml-Communication_diagram',
+        'uml/uml-activity_diagram',
+        'uml/uml-class_diagram',
+        'uml/uml-component_diagram',
+        'uml/uml-composite_structure_diagram',
+        'uml/uml-deployment_diagram',
+        'uml/uml-interaction_overview_diagram',
+        'uml/uml-object_diagram',
+        'uml/uml-package_diagram',
+        'uml/uml-profile_diagram',
+        'uml/uml-sequence_diagram',
+        'uml/uml-statemachine_diagram',
+        'uml/uml-timing_diagram',
+        'uml/uml-usecase_diagram'
       ],
     },
   ],
